@@ -1006,7 +1006,6 @@ export default {
       let output = this.output.clone()
       let format = this.selfFormat
       if (/j\w/.test(format)) output.locale('fa')
-      if (/i\w/.test(format)) output.locale('ar-sa')
       this.setTimezone(output, 'out')
       return output.format(format)
     },
@@ -1018,7 +1017,6 @@ export default {
         this.displayFormat ||
         this.selfFormat
       if (/j\w/.test(format)) output.locale('fa')
-      if (/i\w/.test(format)) output.locale('ar-sa')
       return output.format(format)
     },
     isDisableTime() {

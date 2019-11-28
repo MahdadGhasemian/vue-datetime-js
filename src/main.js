@@ -33,7 +33,7 @@ Vue.use(VueRouter)
 /**
  * Import datepicker and define component
  */
-import VuePersianDatetimePicker from './picker/VueDatetime.vue'
+import VuePersianDatetimePicker from './picker/VueDatetimeJs.vue'
 Vue.component('date-picker', VuePersianDatetimePicker)
 
 import Card from './components/card.vue'

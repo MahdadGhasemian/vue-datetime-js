@@ -103,13 +103,13 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 if (process.env.NODE_ENV === 'export') {
-  module.exports.entry = './src/picker/VueDatetime.vue'
+  module.exports.entry = './src/picker/VueDatetimeJs.vue'
 
   module.exports.output = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'vue-datetime.js',
-    library: 'VueDatetime',
+    filename: 'vue-datetime-js.js',
+    library: 'VueDatetimeJs',
     libraryTarget: 'umd'
   }
 
@@ -141,12 +141,12 @@ if (process.env.NODE_ENV === 'export') {
 }
 
 if (process.env.NODE_ENV === 'browser') {
-  module.exports.entry = './src/picker/VueDatetime.vue'
+  module.exports.entry = './src/picker/VueDatetimeJs.vue'
   module.exports.output = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'vue-datetime-browser.js',
-    library: 'VueDatetime',
+    filename: 'vue-datetime-js-browser.js',
+    library: 'VueDatetimeJs',
     libraryExport: 'default',
     libraryTarget: 'var'
   }

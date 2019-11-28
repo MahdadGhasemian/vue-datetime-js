@@ -128,7 +128,6 @@ const Core = function(defaultLocaleName) {
 
       const nameInLocale = name => {
         if (locale.name !== 'fa') name = name.replace(/j/g, '')
-        if (locale.name !== 'ar-sa') name = name.replace(/i/g, '')
         return name
       }
 
