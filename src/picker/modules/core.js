@@ -3,11 +3,18 @@
 
 import moment from 'moment-jalaali'
 import fa from './moment.locale.fa'
+import fr from './moment.locale.fr'
+import ka from './moment.locale.ka'
+import arSa from './moment.locale.ar-sa'
 import utils from './utils'
-moment.updateLocale('en', {
-  weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
-})
+// moment.updateLocale('en', {
+//   weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
+// })
+
 moment.updateLocale('fa', fa)
+moment.updateLocale('fr', fr)
+moment.updateLocale('ka', ka)
+moment.updateLocale('ar-sa', arSa)
 moment.loadPersian({ dialect: 'persian-modern' })
 moment.daysInMonth = function(year, month) {
   return moment({ year, month }).daysInMonth()
@@ -25,6 +32,13 @@ const localMethods = {
     day: 'day'
   },
   en: {
+    daysInMonth: 'daysInMonth',
+    year: 'year',
+    month: 'month',
+    date: 'date',
+    day: 'day'
+  },
+  'ar-sa': {
     daysInMonth: 'daysInMonth',
     year: 'year',
     month: 'month',
@@ -58,6 +72,19 @@ const localesConfig = {
       nextMonth: 'Next month',
       prevMonth: 'Previous month'
     }
+  },
+  'ar-sa': {
+    dow: 6,
+    dir: 'rtl',
+    displayFormat: null,
+    lang: {
+      label: 'شمسی',
+      submit: 'تایید',
+      cancel: 'انصراف',
+      now: 'اکنون',
+      nextMonth: 'ماه بعد',
+      prevMonth: 'ماه قبل'
+    }
   }
 }
 
@@ -66,7 +93,7 @@ const Core = function(defaultLocaleName) {
 
   const Instance = {
     moment: moment,
-    locale: { name: 'fa', config: {} },
+    locale: { name: 'en', config: {} },
     localesConfig: {},
     setLocalesConfig: null,
     changeLocale: null,
@@ -81,14 +108,14 @@ const Core = function(defaultLocaleName) {
   let xDaysInMonth
 
   Instance.changeLocale = function changeLocale(
-    localeName = 'fa',
+    localeName = 'en',
     options = {}
   ) {
     let locale = this.locale
     let config = JSON.parse(
-      JSON.stringify(localesConfig[localeName] || localesConfig.fa)
+      JSON.stringify(localesConfig[localeName] || localesConfig.en)
     )
-    let methods = localMethods[localeName] || localMethods.fa
+    let methods = localMethods[localeName] || localMethods.en
 
     options = options[localeName] || {}
     locale.name = localeName
@@ -101,6 +128,7 @@ const Core = function(defaultLocaleName) {
 
       const nameInLocale = name => {
         if (locale.name !== 'fa') name = name.replace(/j/g, '')
+        if (locale.name !== 'ar-sa') name = name.replace(/i/g, '')
         return name
       }
 

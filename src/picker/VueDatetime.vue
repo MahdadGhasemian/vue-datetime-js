@@ -698,11 +698,11 @@ export default {
      * Locales config ("fa" for jalali and "en" for gregorian)
      * @type String
      * @default fa
-     * @example fa | en | fa,en | en,fa
+     * @example fa | en | fa,en | en,fa | fr | ka | ar-sa
      * @supported fa,en
      * @version 2.0.0
      */
-    locale: { type: String, default: 'fa' },
+    locale: { type: String, default: 'en' },
 
     /**
      * Locale configuration
@@ -738,7 +738,7 @@ export default {
     timezone: { type: [Boolean, String, Function], default: false }
   },
   data() {
-    let coreModule = new CoreModule('fa')
+    let coreModule = new CoreModule('en')
     return {
       core: coreModule,
       now: coreModule.moment(),
@@ -767,7 +767,7 @@ export default {
       maxDate: false,
       output: '',
       updateNowInterval: null,
-      locales: ['fa'],
+      locales: ['en'],
       localeData: coreModule.locale
     }
   },
@@ -1006,6 +1006,7 @@ export default {
       let output = this.output.clone()
       let format = this.selfFormat
       if (/j\w/.test(format)) output.locale('fa')
+      if (/i\w/.test(format)) output.locale('ar-sa')
       this.setTimezone(output, 'out')
       return output.format(format)
     },
@@ -1017,6 +1018,7 @@ export default {
         this.displayFormat ||
         this.selfFormat
       if (/j\w/.test(format)) output.locale('fa')
+      if (/i\w/.test(format)) output.locale('ar-sa')
       return output.format(format)
     },
     isDisableTime() {
@@ -1125,12 +1127,12 @@ export default {
     },
     locale: {
       handler(val) {
-        let allowedLocales = ['fa', 'en']
+        let allowedLocales = ['fa', 'en', 'fr', 'ka', 'ar-sa']
         let locales = val
           .toString()
           .split(',')
           .filter(i => allowedLocales.indexOf(i) !== -1)
-        this.locales = locales.length ? locales : ['fa']
+        this.locales = locales.length ? locales : ['en']
         this.setLocale(this.locales[0])
       },
       immediate: true

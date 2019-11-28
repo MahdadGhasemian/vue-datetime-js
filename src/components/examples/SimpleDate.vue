@@ -1,10 +1,10 @@
 <template>
   <div class="pt-5">
     <h1 class="text-center" style="margin-bottom: 50px">
-      VUE PERSIAN DATE TIME PICKER
+      VUE DATE TIME PICKER
     </h1>
     <h5 class="text-center mb-5">
-      A vue plugin to select jalali date and time
+      A vue plugin to select date and time
     </h5>
 
     <card title="Simple example">
