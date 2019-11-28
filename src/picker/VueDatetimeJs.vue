@@ -697,12 +697,22 @@ export default {
     /**
      * Locales config ("fa" for jalali and "en" for gregorian)
      * @type String
-     * @default fa
-     * @example fa | en | fa,en | en,fa | fr | ka | ar-sa
+     * @default en
+     * @example fa | en | fa,en | en,fa
      * @supported fa,en
      * @version 2.0.0
      */
     locale: { type: String, default: 'en' },
+
+    /**
+     * Locales config
+     * @type String
+     * @default en
+     * @example fa | en | fr | ka | ar-sa
+     * @supported fa,en,fr,ka,ar-sa
+     * @version 2.0.0
+     */
+    localeLange: { type: String, default: 'en' },
 
     /**
      * Locale configuration
@@ -738,7 +748,7 @@ export default {
     timezone: { type: [Boolean, String, Function], default: false }
   },
   data() {
-    let coreModule = new CoreModule('en')
+    let coreModule = new CoreModule('en', 'en')
     return {
       core: coreModule,
       now: coreModule.moment(),
@@ -1528,7 +1538,7 @@ export default {
       this.$emit('change', null)
     },
     setLocale(locale) {
-      this.core.changeLocale(locale, this.localeConfig)
+      this.core.changeLocale(locale, this.localeLange, this.localeConfig)
       this.date = this.date.clone()
       this.selectedDate = this.selectedDate.clone()
       this.$forceUpdate()

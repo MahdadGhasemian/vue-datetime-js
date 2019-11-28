@@ -8,15 +8,17 @@
     </h5>
 
     <card title="Simple example">
-      <date-picker v-model="date" :clearable="true" :locale="'fa'"/>
+      <date-picker v-model="date" :clearable="true" :localeLange="'fa'" :locale="'fa'"/>
       <br />
-      <date-picker v-model="date" :clearable="true" :locale="'en'"/>
+      <date-picker v-model="date" :clearable="true" :localeLange="'en'" :locale="'en'"/>
       <br />
-      <date-picker v-model="date" :clearable="true" :locale="'fr'"/>
+      <date-picker v-model="date" :clearable="true" :localeLange="'fr'" :locale="'fa'"/>
       <br />
-      <date-picker v-model="date" :clearable="true" :locale="'ka'"/>
+      <date-picker v-model="date" :clearable="true" :localeLange="'fr'" :locale="'en'"/>
       <br />
-      <date-picker v-model="date" :clearable="true" :locale="'ar-sa'"/>
+      <date-picker v-model="date" :clearable="true" :localeLange="'ka'" :locale="'en'"/>
+      <br />
+      <date-picker v-model="date" :clearable="true" :localeLange="'ar-sa'" :locale="'en'"/>
       <br />
       <date-picker v-model="datetime" type="datetime" />
       <br />
@@ -32,6 +34,9 @@
 
       <template slot="code">
         <!-- eslint-disable -->
+        <highlight-code lang="html" v-pre>
+          &lt;date-picker v-model="date" :clearable="true" /&gt;
+        </highlight-code>
         <highlight-code lang="html" v-pre>
           &lt;date-picker v-model="date" :clearable="true" /&gt;
         </highlight-code>

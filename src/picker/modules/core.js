@@ -37,13 +37,6 @@ const localMethods = {
     month: 'month',
     date: 'date',
     day: 'day'
-  },
-  'ar-sa': {
-    daysInMonth: 'daysInMonth',
-    year: 'year',
-    month: 'month',
-    date: 'date',
-    day: 'day'
   }
 }
 const localesConfig = {
@@ -72,28 +65,15 @@ const localesConfig = {
       nextMonth: 'Next month',
       prevMonth: 'Previous month'
     }
-  },
-  'ar-sa': {
-    dow: 6,
-    dir: 'rtl',
-    displayFormat: null,
-    lang: {
-      label: 'شمسی',
-      submit: 'تایید',
-      cancel: 'انصراف',
-      now: 'اکنون',
-      nextMonth: 'ماه بعد',
-      prevMonth: 'ماه قبل'
-    }
   }
 }
 
-const Core = function(defaultLocaleName) {
+const Core = function(defaultLocaleName, defaultLocaleLange) {
   'use strict'
 
   const Instance = {
     moment: moment,
-    locale: { name: 'en', config: {} },
+    locale: { name: 'en', lang: 'en', config: {} },
     localesConfig: {},
     setLocalesConfig: null,
     changeLocale: null,
@@ -109,16 +89,19 @@ const Core = function(defaultLocaleName) {
 
   Instance.changeLocale = function changeLocale(
     localeName = 'en',
+    localeLange = 'en',
     options = {}
   ) {
     let locale = this.locale
     let config = JSON.parse(
       JSON.stringify(localesConfig[localeName] || localesConfig.en)
     )
+
     let methods = localMethods[localeName] || localMethods.en
 
     options = options[localeName] || {}
     locale.name = localeName
+    locale.lang = localeLange
     locale.config = utils.extend(true, config, options)
 
     xDaysInMonth = moment[methods.daysInMonth]
@@ -154,7 +137,8 @@ const Core = function(defaultLocaleName) {
 
     this.moment = function() {
       let date = moment.apply(null, arguments)
-      date.locale(locale.name)
+      // date.locale(locale.name)
+      date.locale(locale.lang)
       addMethods(date)
       return date
     }
@@ -250,7 +234,7 @@ const Core = function(defaultLocaleName) {
     return list
   }
 
-  Instance.changeLocale(defaultLocaleName)
+  Instance.changeLocale(defaultLocaleName, defaultLocaleLange)
 
   return Instance
 }
