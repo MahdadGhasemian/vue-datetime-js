@@ -103,13 +103,13 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 if (process.env.NODE_ENV === 'export') {
-  module.exports.entry = './src/picker/VuePersianDatetimePicker.vue'
+  module.exports.entry = './src/picker/VueDatetime.vue'
 
   module.exports.output = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'vue-persian-datetime-picker.js',
-    library: 'VuePersianDatetimePicker',
+    filename: 'vue-datetime.js',
+    library: 'VueDatetime',
     libraryTarget: 'umd'
   }
 
@@ -141,12 +141,12 @@ if (process.env.NODE_ENV === 'export') {
 }
 
 if (process.env.NODE_ENV === 'browser') {
-  module.exports.entry = './src/picker/VuePersianDatetimePicker.vue'
+  module.exports.entry = './src/picker/VueDatetime.vue'
   module.exports.output = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'vue-persian-datetime-picker-browser.js',
-    library: 'VuePersianDatetimePicker',
+    filename: 'vue-datetime-browser.js',
+    library: 'VueDatetime',
     libraryExport: 'default',
     libraryTarget: 'var'
   }
