@@ -121,6 +121,10 @@ This project is licensed under the MIT License
 
 ## Change log
 
+### 1.0.4 (2019-11-28)
+
+  * Some Test
+  
 ### 1.0.3 (2019-11-28)
 
   * Add localeLange Prop
