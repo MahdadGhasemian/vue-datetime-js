@@ -8,41 +8,26 @@
     </h5>
 
     <card title="Simple example">
-      <date-picker v-model="date" :clearable="true" :localeLange="'fa'" :locale="'fa'"/>
+      <date-picker v-model="date" :clearable="true" :locale="'ar-sa'"/>
       <br />
-      <date-picker v-model="date" :clearable="true" :localeLange="'en'" :locale="'en'"/>
+      <date-picker v-model="date2" :clearable="true" :locale="'en'"/>
       <br />
-      <date-picker v-model="date" :clearable="true" :localeLange="'fr'" :locale="'fa'"/>
+      <date-picker v-model="date3" :clearable="true" :locale="'fa'"/>
       <br />
-      <date-picker v-model="date" :clearable="true" :localeLange="'fr'" :locale="'en'"/>
+      <!--<date-picker v-model="datetime" type="datetime" />-->
       <br />
-      <date-picker v-model="date" :clearable="true" :localeLange="'ka'" :locale="'en'"/>
+      <!--<date-picker v-model="time" type="time" />-->
       <br />
-      <date-picker v-model="date" :clearable="true" :localeLange="'ar-sa'" :locale="'en'"/>
+      <!--<date-picker v-model="yearMonth" type="year-month" />-->
       <br />
-      <date-picker v-model="datetime" type="datetime" />
+      <!--<date-picker v-model="year" type="year" min="1350" max="1410" />-->
       <br />
-      <date-picker v-model="time" type="time" />
+      <!--<date-picker v-model="month" type="month" />-->
       <br />
-      <date-picker v-model="yearMonth" type="year-month" />
-      <br />
-      <date-picker v-model="year" type="year" min="1350" max="1410" />
-      <br />
-      <date-picker v-model="month" type="month" />
-      <br />
-      <date-picker locale="en,fa" format="YYYY/M/D" />
+      <!--<date-picker locale="en,fa" format="YYYY/M/D" />-->
 
       <template slot="code">
         <!-- eslint-disable -->
-        <highlight-code lang="html" v-pre>
-          &lt;date-picker v-model="date" :clearable="true" /&gt;
-        </highlight-code>
-        <highlight-code lang="html" v-pre>
-          &lt;date-picker v-model="date" :clearable="true" /&gt;
-        </highlight-code>
-        <highlight-code lang="html" v-pre>
-          &lt;date-picker v-model="date" :clearable="true" /&gt;
-        </highlight-code>
         <highlight-code lang="html" v-pre>
           &lt;date-picker v-model="date" :clearable="true" /&gt;
         </highlight-code>
@@ -77,16 +62,30 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      date: '',
-      time: '',
-      yearMonth: '',
-      datetime: '',
-      year: '',
-      month: ''
+
+  export default {
+    data() {
+      return {
+        date: '',
+        date2: '',
+        date3: '',
+        time: '',
+        yearMonth: '',
+        datetime: '',
+        year: '',
+        month: ''
+      }
+    },
+    watch: {
+      date() {
+        console.log(this.date);
+      },
+      date2() {
+        console.log(this.date2);
+      },
+      date3() {
+        console.log(this.date3);
+      }
     }
   }
-}
 </script>

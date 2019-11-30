@@ -1,23 +1,28 @@
 /*global getYear*/
 /*eslint no-undef: ["error", { "typeof": true }] */
 
-import moment from 'moment-jalaali'
+import jmoment from 'moment-jalaali'
+import imoment from 'moment-hijri'
+
 import fa from './moment.locale.fa'
 import fr from './moment.locale.fr'
 import ka from './moment.locale.ka'
 import arSa from './moment.locale.ar-sa'
 import utils from './utils'
-// moment.updateLocale('en', {
+// jmoment.updateLocale('en', {
 //   weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
 // })
 
-moment.updateLocale('fa', fa)
-moment.updateLocale('fr', fr)
-moment.updateLocale('ka', ka)
-moment.updateLocale('ar-sa', arSa)
-moment.loadPersian({ dialect: 'persian-modern' })
-moment.daysInMonth = function(year, month) {
-  return moment({ year, month }).daysInMonth()
+jmoment.updateLocale('fa', fa)
+jmoment.updateLocale('fr', fr)
+jmoment.updateLocale('ka', ka)
+imoment.updateLocale('ar-sa', arSa)
+jmoment.loadPersian({ dialect: 'persian-modern' })
+jmoment.daysInMonth = function(year, month) {
+  return jmoment({ year, month }).daysInMonth()
+}
+imoment.daysInMonth = function(year, month) {
+  return imoment({ year, month }).daysInMonth()
 }
 
 //=====================================
@@ -36,6 +41,13 @@ const localMethods = {
     year: 'year',
     month: 'month',
     date: 'date',
+    day: 'day'
+  },
+  'ar-sa': {
+    daysInMonth: 'iDaysInMonth',
+    year: 'iYear',
+    month: 'iMonth',
+    date: 'iDate',
     day: 'day'
   }
 }
@@ -65,15 +77,28 @@ const localesConfig = {
       nextMonth: 'Next month',
       prevMonth: 'Previous month'
     }
-  }
+  },
+  'ar-sa': {
+    dow: 6,
+    dir: 'rtl',
+    displayFormat: null,
+    lang: {
+      label: 'قمری',
+      submit: 'حسنا',
+      cancel: 'إلغاء',
+      now: 'الآن',
+      nextMonth: 'الشهر القادم',
+      prevMonth: 'الشهر السابق'
+    }
+  },
 }
 
-const Core = function(defaultLocaleName, defaultLocaleLange) {
+const Core = function(defaultLocaleName) {
   'use strict'
 
   const Instance = {
-    moment: moment,
-    locale: { name: 'en', lang: 'en', config: {} },
+    moment: (defaultLocaleName === 'ar-sa') ? imoment : jmoment,
+    locale: { name: defaultLocaleName, config: {} },
     localesConfig: {},
     setLocalesConfig: null,
     changeLocale: null,
@@ -89,7 +114,6 @@ const Core = function(defaultLocaleName, defaultLocaleLange) {
 
   Instance.changeLocale = function changeLocale(
     localeName = 'en',
-    localeLange = 'en',
     options = {}
   ) {
     let locale = this.locale
@@ -101,16 +125,18 @@ const Core = function(defaultLocaleName, defaultLocaleLange) {
 
     options = options[localeName] || {}
     locale.name = localeName
-    locale.lang = localeLange
     locale.config = utils.extend(true, config, options)
 
-    xDaysInMonth = moment[methods.daysInMonth]
+    let moment = (defaultLocaleName === 'ar-sa') ? imoment : jmoment;
+    xDaysInMonth =  moment[methods.daysInMonth]
 
     function addMethods(date) {
       if (date === undefined) return
 
       const nameInLocale = name => {
-        if (locale.name !== 'fa') name = name.replace(/j/g, '')
+        if (locale.name === 'ar-sa') name = name.replace(/j/g, 'i')
+        else if (locale.name !== 'fa') name = name.replace(/j/g, '')
+
         return name
       }
 
@@ -137,8 +163,7 @@ const Core = function(defaultLocaleName, defaultLocaleLange) {
 
     this.moment = function() {
       let date = moment.apply(null, arguments)
-      // date.locale(locale.name)
-      date.locale(locale.lang)
+      date.locale(locale.name)
       addMethods(date)
       return date
     }
@@ -160,7 +185,7 @@ const Core = function(defaultLocaleName, defaultLocaleLange) {
       weekArray.push(week)
     }
 
-    let moment = this.moment
+    let moment = this.moment;
     let daysInMonth = xDaysInMonth(moment(d).xYear(), moment(d).xMonth())
 
     let dayArray = []
@@ -234,7 +259,7 @@ const Core = function(defaultLocaleName, defaultLocaleLange) {
     return list
   }
 
-  Instance.changeLocale(defaultLocaleName, defaultLocaleLange)
+  Instance.changeLocale(defaultLocaleName)
 
   return Instance
 }

@@ -144,7 +144,7 @@
                       @click="goStep('m')"
                     >
                       <span :style="{ 'border-color': color, color: color }">{{
-                        date.xFormat('jMMMM jYYYY')
+                        date.xFormat((locale === 'ar-sa') ? 'iMMMM iYYYY' : 'jMMMM jYYYY')
                       }}</span>
                     </div>
                   </transition>
@@ -234,7 +234,7 @@
                       :disabled="year.disabled"
                       @click="selectYear(year)"
                     >
-                      {{ year.xFormat('jYYYY') }}
+                      {{ year.xFormat((locale === 'ar-sa') ? 'iYYYY' : 'jYYYY') }}
                     </div>
                   </div>
                 </div>
@@ -268,7 +268,7 @@
                       ]"
                       @click="selectMonth(monthItem)"
                     >
-                      {{ monthItem.xFormat('jMMMM') }}
+                      {{ monthItem.xFormat((locale === 'ar-sa') ? 'iMMMM' : 'jMMMM') }}
                     </div>
                   </div>
                 </div>
@@ -698,21 +698,11 @@ export default {
      * Locales config ("fa" for jalali and "en" for gregorian)
      * @type String
      * @default en
-     * @example fa | en | fa,en | en,fa
+     * @example fa | en | fa,en | en,fa | ar-sa
      * @supported fa,en
      * @version 2.0.0
      */
     locale: { type: String, default: 'en' },
-
-    /**
-     * Locales config
-     * @type String
-     * @default en
-     * @example fa | en | fr | ka | ar-sa
-     * @supported fa,en,fr,ka,ar-sa
-     * @version 2.0.0
-     */
-    localeLange: { type: String, default: 'en' },
 
     /**
      * Locale configuration
@@ -748,7 +738,7 @@ export default {
     timezone: { type: [Boolean, String, Function], default: false }
   },
   data() {
-    let coreModule = new CoreModule('en', 'en')
+    let coreModule = new CoreModule(this.locale)
     return {
       core: coreModule,
       now: coreModule.moment(),
@@ -807,9 +797,9 @@ export default {
     formattedDate() {
       let format = ''
 
-      if (this.hasStep('y')) format = 'jYYYY'
-      if (this.hasStep('m')) format += ' jMMMM '
-      if (this.hasStep('d')) format = 'ddd jDD jMMMM'
+      if (this.hasStep('y')) format = (this.locale === 'ar-sa') ? 'iYYYY' : 'jYYYY'
+      if (this.hasStep('m')) format += (this.locale === 'ar-sa') ? 'iMMMM ' : 'jMMMM '
+      if (this.hasStep('d')) format = (this.locale === 'ar-sa') ? 'ddd iDD iMMMM' : 'ddd jDD jMMMM'
       if (this.hasStep('t')) format += ' HH:mm '
 
       return format ? this.selectedDate.xFormat(format) : ''
@@ -869,10 +859,10 @@ export default {
       let moment = this.core.moment
       let min = this.minDate
         ? this.minDate.xYear()
-        : moment('1300', 'jYYYY').xYear()
+        : moment((this.locale === 'ar-sa') ? '1340' : '1300', (this.locale === 'ar-sa') ? 'iYYYY' : 'jYYYY').xYear()
       let max = this.maxDate
         ? this.maxDate.xYear()
-        : moment('1430', 'jYYYY').xYear()
+        : moment((this.locale === 'ar-sa') ? '1472' : '1430', (this.locale === 'ar-sa') ? 'iYYYY' : 'jYYYY').xYear()
       let cy = this.date.xYear()
       return this.core
         .getYearsList(min, max)
@@ -988,19 +978,19 @@ export default {
             format = 'HH:mm'
             break
           case 'datetime':
-            format = 'jYYYY/jMM/jDD HH:mm'
+            format = (this.locale === 'ar-sa') ? 'iYYYY/iMM/iDD HH:mm' : (this.locale === 'fa') ? 'jYYYY/jMM/jDD HH:mm' : 'YYYY/MM/DD HH:mm'
             break
           case 'date':
-            format = 'jYYYY/jMM/jDD'
+            format = (this.locale === 'ar-sa') ? 'iYYYY/iMM/iDD' : (this.locale === 'fa') ? 'jYYYY/jMM/jDD' : 'YYYY/MM/DD'
             break
           case 'year':
-            format = 'jYYYY'
+            format = (this.locale === 'ar-sa') ? 'iYYYY' : (this.locale === 'fa') ? 'jYYYY' : 'YYYY'
             break
           case 'month':
-            format = 'jMM'
+            format = (this.locale === 'ar-sa') ? 'iMM' : (this.locale === 'fa') ? 'jMM' : 'MM'
             break
           case 'year-month':
-            format = 'jYYYY/jMM'
+            format = (this.locale === 'ar-sa') ? 'iYYYY/iMM' : (this.locale === 'fa') ? 'jYYYY/jMM' : 'YYYY/MM'
             break
         }
       }
@@ -1014,8 +1004,11 @@ export default {
     outputValue() {
       if (!this.output) return ''
       let output = this.output.clone()
-      let format = this.selfFormat
-      if (/j\w/.test(format)) output.locale('fa')
+      let format = this.selfFormat;
+      // if (/j\w/.test(format)) {
+        if (this.locale === 'fa') output.locale('fa')
+        else if (this.locale === 'ar-sa') output.locale('ar-sa')
+      // }
       this.setTimezone(output, 'out')
       return output.format(format)
     },
@@ -1025,8 +1018,11 @@ export default {
       let format =
         this.localeData.config.displayFormat ||
         this.displayFormat ||
-        this.selfFormat
-      if (/j\w/.test(format)) output.locale('fa')
+        this.selfFormat;
+      // if (/j\w/.test(format)) {
+        if (this.locale === 'fa') output.locale('fa')
+        else if (this.locale === 'ar-sa') output.locale('ar-sa')
+      // }
       return output.format(format)
     },
     isDisableTime() {
@@ -1315,6 +1311,7 @@ export default {
       this.selectedDate = this.date.clone()
       this.time = this.date.clone()
 
+      // console.log('inja5');
       if (this.value !== '' && this.value !== null && this.value.length !== 0) {
         this.output = this.selectedDate.clone()
       } else {
@@ -1426,6 +1423,7 @@ export default {
       return this.steps.indexOf(step) !== -1
     },
     setOutput(e) {
+      console.log('inja6');
       if (!this.editable) return
       let val = e.target.value
 
@@ -1510,13 +1508,13 @@ export default {
         return false
       }
 
-      if (item === 'y') value = this.core.moment(value, 'jYYYY')
+      if (item === 'y') value = this.core.moment(value, (this.locale === 'ar-sa') ? 'iYYYY' : 'jYYYY')
       return check(value, value.format(this.selfFormat))
     },
     getHighlights(item, value) {
       let highlight = this.highlight
       if (!highlight || typeof highlight !== 'function') return {}
-      if (item === 'y') value = this.core.moment(value, 'jYYYY')
+      if (item === 'y') value = this.core.moment(value, (this.locale === 'ar-sa') ? 'iYYYY' : 'jYYYY')
       return (
         this.applyDevFn(
           highlight,
@@ -1538,7 +1536,7 @@ export default {
       this.$emit('change', null)
     },
     setLocale(locale) {
-      this.core.changeLocale(locale, this.localeLange, this.localeConfig)
+      this.core.changeLocale(locale, this.localeConfig)
       this.date = this.date.clone()
       this.selectedDate = this.selectedDate.clone()
       this.$forceUpdate()
