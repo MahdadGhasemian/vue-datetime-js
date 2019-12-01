@@ -8,31 +8,10 @@ See documentation and demo at [vue-persian-datetime-picker](https://talkhabi.git
 
 
 ## Installation
-### browser
-```html
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.7.4/build/moment-jalaali.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue-persian-datetime-picker/dist/vue-persian-datetime-picker-browser.js"></script>
-<div id="app">
-    <date-picker v-model="date"></date-picker>
-</div>
-<script>
-    var app = new Vue({
-        el: '#app',
-        data: {
-            date: '1397/02/02'
-        },
-        components: {
-            DatePicker: VuePersianDatetimePicker
-        }
-    });
-</script>
-```
 
 ### npm
 ```bash
-npm install vue-persian-datetime-picker --save
+npm install vue-datetime-js --save
 ```
 
 webpack.config.js:
@@ -52,8 +31,8 @@ module.exports.plugins = [
 main.js
 ```javascript
 //...
-import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
-Vue.component('date-picker', VuePersianDatetimePicker);
+import VueDatetimeJs from 'vue-datetime-js';
+Vue.component('date-picker', VueDatetimeJs);
 //...
 ```
 Or in component
@@ -65,7 +44,7 @@ Or in component
 </template>
  
 <script>
-    import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+    import VueDatetimeJs from 'vue-datetime-js'
     export default {
         data(){
             return {
@@ -73,17 +52,16 @@ Or in component
             }
         },
         components: {
-            datePicker: VuePersianDatetimePicker
+            datePicker: VueDatetimeJs
         }
     }
 </script>
 ```
 
-
 ## You can also set default values: 
 main.js
 ```javascript
-import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
+import VueDatetimeJs from 'vue-datetime-js';
 Vue.use(VuePersianDatetimePicker, {
     name: 'custom-date-picker',
     props: {
@@ -106,12 +84,11 @@ Then use in component
 <custom-date-picker v-model="date"></custom-date-picker>
 ```
 
-### [Click to see full documentation and demo](https://talkhabi.github.io/vue-persian-datetime-picker)
-
 ## Built With
 * [Vue.js](https://vuejs.org/) - The Progressive JavaScript Framework.
 * [Moment.js](https://momentjs.com/) - Parse, validate, manipulate, and display dates and times in JavaScript.
 * [moment-jalaali](https://github.com/jalaali/moment-jalaali) - A Jalaali (Jalali, Persian, Khorshidi, Shamsi) calendar system plugin for moment.js.
+* [moment-hijri](https://github.com/xsoh/moment-hijri) - A Hijri calendar (Based on Umm al-Qura calculations) plugin for moment.js.
 
 
 ## License
@@ -120,6 +97,12 @@ This project is licensed under the MIT License
 
 
 ## Change log
+
+### 1.1.0 (2019-12-01)
+
+  * Remove localeLange
+  * Add Hijri calendar
+  * Fix (Hijri ('ar-sa') - Jalalli ('fa') - Gregory ('en'))
 
 ### 1.0.4 (2019-11-28)
 

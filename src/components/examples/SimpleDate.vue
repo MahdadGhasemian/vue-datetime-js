@@ -29,13 +29,13 @@
       <template slot="code">
         <!-- eslint-disable -->
         <highlight-code lang="html" v-pre>
-          &lt;date-picker v-model="date" :clearable="true" /&gt;
+          &lt;date-picker v-model="date" :clearable="true" :locale="'ar-sa'" /&gt;
         </highlight-code>
         <highlight-code lang="html" v-pre>
-          &lt;date-picker v-model="date" :clearable="true" /&gt;
+          &lt;date-picker v-model="date2" :clearable="true" :locale="'en'" /&gt;
         </highlight-code>
         <highlight-code lang="html" v-pre>
-          &lt;date-picker v-model="date" :clearable="true" /&gt;
+          &lt;date-picker v-model="date3" :clearable="true" :locale="'fa'" /&gt;
         </highlight-code>
         <highlight-code lang="html" v-pre>
           &lt;date-picker v-model="datetime" type="datetime" /&gt;
