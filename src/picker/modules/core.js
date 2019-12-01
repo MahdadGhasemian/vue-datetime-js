@@ -98,6 +98,7 @@ const Core = function(defaultLocaleName) {
 
   const Instance = {
     moment: (defaultLocaleName === 'ar-sa') ? imoment : jmoment,
+    iiimoment: imoment,
     locale: { name: defaultLocaleName, config: {} },
     localesConfig: {},
     setLocalesConfig: null,

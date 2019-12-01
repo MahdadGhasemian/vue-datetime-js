@@ -1293,8 +1293,9 @@ export default {
       this.$emit('change', this.selectedDate.clone())
     },
     updateDates(d) {
-      if (null === d || typeof d !== 'object')
+      if (null === d || typeof d !== 'object') {
         d = this.getMoment(d ? d : this.value || this.initialValue)
+      }
 
       this.date = d.isValid() ? d : this.core.moment()
 
@@ -1311,7 +1312,6 @@ export default {
       this.selectedDate = this.date.clone()
       this.time = this.date.clone()
 
-      // console.log('inja5');
       if (this.value !== '' && this.value !== null && this.value.length !== 0) {
         this.output = this.selectedDate.clone()
       } else {
@@ -1423,7 +1423,6 @@ export default {
       return this.steps.indexOf(step) !== -1
     },
     setOutput(e) {
-      console.log('inja6');
       if (!this.editable) return
       let val = e.target.value
 

@@ -79,20 +79,20 @@ export default {
     y: 'سنة',
     yy: '%d سنوات'
   },
-  preparse: function(string) {
-    return string
-      .replace(/[١٢٣٤٥٦٧٨٩٠]/g, function(match) {
-        return numberMap[match]
-      })
-      .replace(/،/g, ',')
-  },
-  postformat: function(string) {
-    return string
-      .replace(/\d/g, function(match) {
-        return symbolMap[match]
-      })
-      .replace(/,/g, '،')
-  },
+  // preparse: function(string) {
+  //   return string
+  //     .replace(/[١٢٣٤٥٦٧٨٩٠]/g, function(match) {
+  //       return numberMap[match]
+  //     })
+  //     .replace(/،/g, ',')
+  // },
+  // postformat: function(string) {
+  //   return string
+  //     .replace(/\d/g, function(match) {
+  //       return symbolMap[match]
+  //     })
+  //     .replace(/,/g, '،')
+  // },
   week: {
     dow: 0, // Sunday is the first day of the week.
     doy: 6 // The week that contains Jan 6th is the first week of the year.

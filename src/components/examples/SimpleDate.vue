@@ -14,15 +14,15 @@
       <br />
       <date-picker v-model="date3" :clearable="true" :locale="'fa'"/>
       <br />
-      <!--<date-picker v-model="datetime" type="datetime" />-->
+      <date-picker v-model="datetime" type="datetime" />
       <br />
-      <!--<date-picker v-model="time" type="time" />-->
+      <date-picker v-model="time" type="time" />
       <br />
-      <!--<date-picker v-model="yearMonth" type="year-month" />-->
+      <date-picker v-model="yearMonth" type="year-month" />
       <br />
-      <!--<date-picker v-model="year" type="year" min="1350" max="1410" />-->
+      <date-picker v-model="year" type="year" min="1350" max="1410" />
       <br />
-      <!--<date-picker v-model="month" type="month" />-->
+      <date-picker v-model="month" type="month" />
       <br />
       <!--<date-picker locale="en,fa" format="YYYY/M/D" />-->
 
