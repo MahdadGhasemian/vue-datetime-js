@@ -99,6 +99,10 @@ This project is licensed under the MIT License
 
 ## Change log
 
+### 1.2.1 (2019-12-02)
+
+  * Fix sample page vue
+
 ### 1.2.0 (2019-12-02)
 
   * Add calendar (gregory, jalali, hijri)

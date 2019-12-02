@@ -62,9 +62,6 @@
         <highlight-code lang="html" v-pre>
           &lt;date-picker v-model="month" type="month" /&gt;
         </highlight-code>
-        <highlight-code lang="html" v-pre>
-          &lt;date-picker locale="en,fa" format="YYYY/M/D" /&gt;
-        </highlight-code>
         <!-- eslint-enable -->
       </template>
     </card>
