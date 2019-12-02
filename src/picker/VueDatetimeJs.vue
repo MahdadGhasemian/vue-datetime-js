@@ -144,7 +144,7 @@
                       @click="goStep('m')"
                     >
                       <span :style="{ 'border-color': color, color: color }">{{
-                        date.xFormat((locale === 'ar-sa') ? 'iMMMM iYYYY' : 'jMMMM jYYYY')
+                        date.xFormat((calendar === 'hijri') ? 'iMMMM iYYYY' : 'jMMMM jYYYY')
                       }}</span>
                     </div>
                   </transition>
@@ -234,7 +234,7 @@
                       :disabled="year.disabled"
                       @click="selectYear(year)"
                     >
-                      {{ year.xFormat((locale === 'ar-sa') ? 'iYYYY' : 'jYYYY') }}
+                      {{ year.xFormat((calendar === 'hijri') ? 'iYYYY' : 'jYYYY') }}
                     </div>
                   </div>
                 </div>
@@ -268,7 +268,7 @@
                       ]"
                       @click="selectMonth(monthItem)"
                     >
-                      {{ monthItem.xFormat((locale === 'ar-sa') ? 'iMMMM' : 'jMMMM') }}
+                      {{ monthItem.xFormat((calendar === 'hijri') ? 'iMMMM' : 'jMMMM') }}
                     </div>
                   </div>
                 </div>
@@ -695,14 +695,24 @@ export default {
     inline: { type: Boolean, default: false },
 
     /**
-     * Locales config ("fa" for jalali and "en" for gregorian)
+     * Locales language config
      * @type String
      * @default en
-     * @example fa | en | fa,en | en,fa | ar-sa
-     * @supported fa,en
+     * @example en
+     * @supported fa,en,fr,ar-sa
      * @version 2.0.0
      */
     locale: { type: String, default: 'en' },
+
+    /**
+     * Calendar type (gregory, jalali, hijri)
+     * @type String
+     * @default gregory
+     * @example gregory
+     * @supported gregory,jalali,hijri
+     * @version 1.2.0
+     */
+    calendar: { type: String, default: 'gregory' },
 
     /**
      * Locale configuration
@@ -738,7 +748,7 @@ export default {
     timezone: { type: [Boolean, String, Function], default: false }
   },
   data() {
-    let coreModule = new CoreModule(this.locale)
+    let coreModule = new CoreModule(this.calendar, this.locale)
     return {
       core: coreModule,
       now: coreModule.moment(),
@@ -797,9 +807,9 @@ export default {
     formattedDate() {
       let format = ''
 
-      if (this.hasStep('y')) format = (this.locale === 'ar-sa') ? 'iYYYY' : 'jYYYY'
-      if (this.hasStep('m')) format += (this.locale === 'ar-sa') ? 'iMMMM ' : 'jMMMM '
-      if (this.hasStep('d')) format = (this.locale === 'ar-sa') ? 'ddd iDD iMMMM' : 'ddd jDD jMMMM'
+      if (this.hasStep('y')) format = (this.calendar === 'hijri') ? 'iYYYY' : 'jYYYY'
+      if (this.hasStep('m')) format += (this.calendar === 'hijri') ? 'iMMMM ' : 'jMMMM '
+      if (this.hasStep('d')) format = (this.calendar === 'hijri') ? 'ddd iDD iMMMM' : 'ddd jDD jMMMM'
       if (this.hasStep('t')) format += ' HH:mm '
 
       return format ? this.selectedDate.xFormat(format) : ''
@@ -859,10 +869,10 @@ export default {
       let moment = this.core.moment
       let min = this.minDate
         ? this.minDate.xYear()
-        : moment((this.locale === 'ar-sa') ? '1340' : '1300', (this.locale === 'ar-sa') ? 'iYYYY' : 'jYYYY').xYear()
+        : moment((this.calendar === 'hijri') ? '1340' : '1300', (this.calendar === 'hijri') ? 'iYYYY' : 'jYYYY').xYear()
       let max = this.maxDate
         ? this.maxDate.xYear()
-        : moment((this.locale === 'ar-sa') ? '1472' : '1430', (this.locale === 'ar-sa') ? 'iYYYY' : 'jYYYY').xYear()
+        : moment((this.calendar === 'hijri') ? '1472' : '1430', (this.calendar === 'hijri') ? 'iYYYY' : 'jYYYY').xYear()
       let cy = this.date.xYear()
       return this.core
         .getYearsList(min, max)
@@ -978,19 +988,19 @@ export default {
             format = 'HH:mm'
             break
           case 'datetime':
-            format = (this.locale === 'ar-sa') ? 'iYYYY/iMM/iDD HH:mm' : (this.locale === 'fa') ? 'jYYYY/jMM/jDD HH:mm' : 'YYYY/MM/DD HH:mm'
+            format = (this.calendar === 'hijri') ? 'iYYYY/iMM/iDD HH:mm' : (this.calendar === 'jalali') ? 'jYYYY/jMM/jDD HH:mm' : 'YYYY/MM/DD HH:mm'
             break
           case 'date':
-            format = (this.locale === 'ar-sa') ? 'iYYYY/iMM/iDD' : (this.locale === 'fa') ? 'jYYYY/jMM/jDD' : 'YYYY/MM/DD'
+            format = (this.calendar === 'hijri') ? 'iYYYY/iMM/iDD' : (this.calendar === 'jalali') ? 'jYYYY/jMM/jDD' : 'YYYY/MM/DD'
             break
           case 'year':
-            format = (this.locale === 'ar-sa') ? 'iYYYY' : (this.locale === 'fa') ? 'jYYYY' : 'YYYY'
+            format = (this.calendar === 'hijri') ? 'iYYYY' : (this.calendar === 'jalali') ? 'jYYYY' : 'YYYY'
             break
           case 'month':
-            format = (this.locale === 'ar-sa') ? 'iMM' : (this.locale === 'fa') ? 'jMM' : 'MM'
+            format = (this.calendar === 'hijri') ? 'iMM' : (this.calendar === 'jalali') ? 'jMM' : 'MM'
             break
           case 'year-month':
-            format = (this.locale === 'ar-sa') ? 'iYYYY/iMM' : (this.locale === 'fa') ? 'jYYYY/jMM' : 'YYYY/MM'
+            format = (this.calendar === 'hijri') ? 'iYYYY/iMM' : (this.calendar === 'jalali') ? 'jYYYY/jMM' : 'YYYY/MM'
             break
         }
       }
@@ -1006,8 +1016,9 @@ export default {
       let output = this.output.clone()
       let format = this.selfFormat;
       // if (/j\w/.test(format)) {
-        if (this.locale === 'fa') output.locale('fa')
-        else if (this.locale === 'ar-sa') output.locale('ar-sa')
+      //   if (this.calendar === 'jalali') output.locale('fa')
+      //   else if (this.calendar === 'hijri') output.locale('ar-sa')
+      // output.locale(this.locale);
       // }
       this.setTimezone(output, 'out')
       return output.format(format)
@@ -1020,8 +1031,9 @@ export default {
         this.displayFormat ||
         this.selfFormat;
       // if (/j\w/.test(format)) {
-        if (this.locale === 'fa') output.locale('fa')
-        else if (this.locale === 'ar-sa') output.locale('ar-sa')
+      //   if (this.calendar === 'jalali') output.locale('fa')
+      //   else if (this.calendar === 'hijri') output.locale('ar-sa')
+      // output.locale(this.locale);
       // }
       return output.format(format)
     },
@@ -1507,13 +1519,13 @@ export default {
         return false
       }
 
-      if (item === 'y') value = this.core.moment(value, (this.locale === 'ar-sa') ? 'iYYYY' : 'jYYYY')
+      if (item === 'y') value = this.core.moment(value, (this.calendar === 'hijri') ? 'iYYYY' : 'jYYYY')
       return check(value, value.format(this.selfFormat))
     },
     getHighlights(item, value) {
       let highlight = this.highlight
       if (!highlight || typeof highlight !== 'function') return {}
-      if (item === 'y') value = this.core.moment(value, (this.locale === 'ar-sa') ? 'iYYYY' : 'jYYYY')
+      if (item === 'y') value = this.core.moment(value, (this.calendar === 'hijri') ? 'iYYYY' : 'jYYYY')
       return (
         this.applyDevFn(
           highlight,
@@ -1535,7 +1547,7 @@ export default {
       this.$emit('change', null)
     },
     setLocale(locale) {
-      this.core.changeLocale(locale, this.localeConfig)
+      this.core.changeLocale(this.calendar, locale, this.localeConfig)
       this.date = this.date.clone()
       this.selectedDate = this.selectedDate.clone()
       this.$forceUpdate()

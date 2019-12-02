@@ -29,21 +29,21 @@ imoment.daysInMonth = function(year, month) {
 //           CONFIG
 //=====================================
 const localMethods = {
-  fa: {
+  jalali: {
     daysInMonth: 'jDaysInMonth',
     year: 'jYear',
     month: 'jMonth',
     date: 'jDate',
     day: 'day'
   },
-  en: {
+  gregory: {
     daysInMonth: 'daysInMonth',
     year: 'year',
     month: 'month',
     date: 'date',
     day: 'day'
   },
-  'ar-sa': {
+  hijri: {
     daysInMonth: 'iDaysInMonth',
     year: 'iYear',
     month: 'iMonth',
@@ -52,7 +52,7 @@ const localMethods = {
   }
 }
 const localesConfig = {
-  fa: {
+  jalali: {
     dow: 6,
     dir: 'rtl',
     displayFormat: null,
@@ -65,7 +65,7 @@ const localesConfig = {
       prevMonth: 'ماه قبل'
     }
   },
-  en: {
+  gregory: {
     dow: 0,
     dir: 'ltr',
     displayFormat: null,
@@ -78,7 +78,7 @@ const localesConfig = {
       prevMonth: 'Previous month'
     }
   },
-  'ar-sa': {
+  hijri: {
     dow: 6,
     dir: 'rtl',
     displayFormat: null,
@@ -93,12 +93,12 @@ const localesConfig = {
   },
 }
 
-const Core = function(defaultLocaleName) {
+const Core = function(defaultCalendarName, defaultLocaleName) {
   'use strict'
 
   const Instance = {
-    moment: (defaultLocaleName === 'ar-sa') ? imoment : jmoment,
-    iiimoment: imoment,
+    moment: (defaultCalendarName === 'hijri') ? imoment : jmoment,
+    calendar: defaultCalendarName,
     locale: { name: defaultLocaleName, config: {} },
     localesConfig: {},
     setLocalesConfig: null,
@@ -114,29 +114,31 @@ const Core = function(defaultLocaleName) {
   let xDaysInMonth
 
   Instance.changeLocale = function changeLocale(
+    localeCalendar = 'gregory',
     localeName = 'en',
     options = {}
   ) {
+    let calendar = this.calendar
     let locale = this.locale
     let config = JSON.parse(
-      JSON.stringify(localesConfig[localeName] || localesConfig.en)
+      JSON.stringify(localesConfig[localeCalendar] || localesConfig.gregory)
     )
 
-    let methods = localMethods[localeName] || localMethods.en
+    let methods = localMethods[localeCalendar] || localMethods.gregory
 
-    options = options[localeName] || {}
+    options = options[localeCalendar] || {}
     locale.name = localeName
     locale.config = utils.extend(true, config, options)
 
-    let moment = (defaultLocaleName === 'ar-sa') ? imoment : jmoment;
+    let moment = (calendar === 'hijri') ? imoment : jmoment;
     xDaysInMonth =  moment[methods.daysInMonth]
 
     function addMethods(date) {
       if (date === undefined) return
 
       const nameInLocale = name => {
-        if (locale.name === 'ar-sa') name = name.replace(/j/g, 'i')
-        else if (locale.name !== 'fa') name = name.replace(/j/g, '')
+        if (calendar === 'hijri') name = name.replace(/j/g, 'i')
+        else if (calendar !== 'jalali') name = name.replace(/j/g, '')
 
         return name
       }
@@ -260,7 +262,7 @@ const Core = function(defaultLocaleName) {
     return list
   }
 
-  Instance.changeLocale(defaultLocaleName)
+  Instance.changeLocale(defaultCalendarName, defaultLocaleName)
 
   return Instance
 }

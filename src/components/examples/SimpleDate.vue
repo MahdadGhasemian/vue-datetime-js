@@ -8,11 +8,15 @@
     </h5>
 
     <card title="Simple example">
-      <date-picker v-model="date" :clearable="true" :locale="'ar-sa'"/>
+      <date-picker v-model="date" :locale="'ar-sa'" :calendar="'hijri'"/>
       <br />
-      <date-picker v-model="date2" :clearable="true" :locale="'en'"/>
+      <date-picker v-model="date2" :locale="'en'" :calendar="'gregory'"/>
       <br />
-      <date-picker v-model="date3" :clearable="true" :locale="'fa'"/>
+      <date-picker v-model="date3" :locale="'fa'" :calendar="'jalali'"/>
+      <br />
+      <date-picker v-model="date4" :locale="'fr'" :calendar="'jalali'"/>
+      <br />
+      <date-picker v-model="date5" :locale="'fr'" :calendar="'gregory'"/>
       <br />
       <date-picker v-model="datetime" type="datetime" />
       <br />
@@ -29,13 +33,19 @@
       <template slot="code">
         <!-- eslint-disable -->
         <highlight-code lang="html" v-pre>
-          &lt;date-picker v-model="date" :clearable="true" :locale="'ar-sa'" /&gt;
+          &lt;date-picker v-model="date" :locale="'ar-sa'" :calendar="'hijri'"/&gt;
         </highlight-code>
         <highlight-code lang="html" v-pre>
-          &lt;date-picker v-model="date2" :clearable="true" :locale="'en'" /&gt;
+          &lt;date-picker v-model="date2" :locale="'en'" :calendar="'gregory'"/&gt;
         </highlight-code>
         <highlight-code lang="html" v-pre>
-          &lt;date-picker v-model="date3" :clearable="true" :locale="'fa'" /&gt;
+          &lt;date-picker v-model="date3" :locale="'fa'" :calendar="'jalali'"/&gt;
+        </highlight-code>
+        <highlight-code lang="html" v-pre>
+          &lt;date-picker v-model="date3" :locale="'fr'" :calendar="'jalali'"/&gt;
+        </highlight-code>
+        <highlight-code lang="html" v-pre>
+          &lt;date-picker v-model="date3" :locale="'fr'" :calendar="'gregory'"/&gt;
         </highlight-code>
         <highlight-code lang="html" v-pre>
           &lt;date-picker v-model="datetime" type="datetime" /&gt;
@@ -69,22 +79,15 @@
         date: '',
         date2: '',
         date3: '',
+        date4: '',
+        date5: '',
+        date6: '',
+        date7: '',
         time: '',
         yearMonth: '',
         datetime: '',
         year: '',
         month: ''
-      }
-    },
-    watch: {
-      date() {
-        console.log(this.date);
-      },
-      date2() {
-        console.log(this.date2);
-      },
-      date3() {
-        console.log(this.date3);
       }
     }
   }
