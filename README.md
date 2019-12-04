@@ -82,14 +82,12 @@ Then use in component
 <custom-date-picker v-model="date"></custom-date-picker>
 ```
 
-## Fork from
-* [](https://github.com/talkhabi/vue-persian-datetime-picker.git) - A vue plugin to select jalali date and time.
-
 ## Built With
-* [vue-persian-datetime-picker](https://vuejs.org/) - The Progressive JavaScript Framework.
+* [Vuejs](https://vuejs.org/) - The Progressive JavaScript Framework.
 * [Moment.js](https://momentjs.com/) - Parse, validate, manipulate, and display dates and times in JavaScript.
 * [moment-jalaali](https://github.com/jalaali/moment-jalaali) - A Jalaali (Jalali, Persian, Khorshidi, Shamsi) calendar system plugin for moment.js.
 * [moment-hijri](https://github.com/xsoh/moment-hijri) - A Hijri calendar (Based on Umm al-Qura calculations) plugin for moment.js.
+* [vue-persian-datetime-picker](https://github.com/talkhabi/vue-persian-datetime-picker.git) - A vue plugin to select jalali date and time.
 
 
 ## License
@@ -98,6 +96,10 @@ This project is licensed under the MIT License
 
 
 ## Change log
+
+### 1.2.2 (2019-12-04)
+
+  * Fix build and ReadMe
 
 ### 1.2.1 (2019-12-02)
 
@@ -131,4 +133,4 @@ This project is licensed under the MIT License
 
 ### 1.0.0 (2019-11-28)
 
-  * For from vue-persian-datetime-picker
+  * Fork from vue-persian-datetime-picker

@@ -3,7 +3,7 @@
     <h2>Installation:</h2>
     <!-- eslint-disable -->
       <highlight-code lang="bash" v-pre>
-        npm install vue-persian-datetime-picker --save
+        npm install vue-datetime-js --save
       </highlight-code>
     <!-- eslint-enable -->
     <p>webpack.config.js:</p>
@@ -24,8 +24,8 @@
     <p>main.js</p>
     <!-- eslint-disable -->
       <highlight-code lang="javascript" v-pre>
-        import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
-        Vue.component('date-picker', VuePersianDatetimePicker);
+        import VueDatetimeJs from 'vue-datetime-js';
+        Vue.component('date-picker', VueDatetimeJs);
       </highlight-code>
     <!-- eslint-enable -->
     <p>Or in component</p>
@@ -38,7 +38,7 @@
       &lt;/template&gt;
 
       &lt;script&gt;
-      import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+      import VueDatetimeJs from 'vue-datetime-js'
       export default {
         data(){
           return {
@@ -46,7 +46,7 @@
           }
         },
         components: {
-          datePicker: VuePersianDatetimePicker
+          datePicker: VueDatetimeJs
         }
       }
       &lt;/script&gt;
@@ -56,8 +56,8 @@
     <p>main.js</p>
     <!-- eslint-disable -->
     <highlight-code lang="javascript" v-pre>
-      import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
-      Vue.use(VuePersianDatetimePicker, {
+      import VueDatetimeJs from 'vue-datetime-js';
+      Vue.use(VueDatetimeJs, {
         name: 'custom-date-picker',
         props: {
           inputFormat: 'YYYY-MM-DD HH:mm',
