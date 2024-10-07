@@ -880,7 +880,7 @@ export default {
         .map(item => {
           let year = moment().xYear(item)
           year.selected = cy === item
-          year.disabled = this.checkDisable('y', item)
+          year.disabled = this.checkDisable('y', String(item))
           year.attributes = this.getHighlights('y', item)
           return year
         })
