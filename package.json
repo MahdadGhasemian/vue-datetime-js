@@ -1,7 +1,7 @@
 {
   "name": "vue-datetime-js",
   "description": "A Vue.js datepicker component",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "author": "mahdad ghasemian",
   "license": "MIT",
   "main": "dist/vue-datetime-js.js",
