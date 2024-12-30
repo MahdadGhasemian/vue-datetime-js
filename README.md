@@ -114,6 +114,10 @@ This project is licensed under the MIT License
 
 ## Change log
 
+### 1.2.3 (2024-12-30)
+
+- Project Archived
+
 ### 1.2.2 (2019-12-04)
 
 - Fix build and ReadMe
